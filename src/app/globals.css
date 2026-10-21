@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+:root {
+  --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background-color: #02030a;
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  /* Single SVG noise (contrast & alpha embedded) + color blobs */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='1.4' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 18% 28%, rgba(84,26,26,0.95) 0%, rgba(84,26,26,0.0) 48%),
+    radial-gradient(circle at 76% 14%, rgba(6,43,85,0.95) 0%, rgba(6,43,85,0.0) 45%),
+    radial-gradient(circle at 62% 78%, rgba(19,84,86,0.95) 0%, rgba(19,84,86,0.0) 55%);
+  background-blend-mode: overlay, screen, screen, screen;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 1200px 1200px, cover, cover, cover;
+  background-position: center center, 18% 28%, 76% 14%, 62% 78%;
+}
+
+/* removed pseudo-element noise layers; noise is now part of the body background-image stack */
+
+@keyframes noise-anim {
+  0% {
+    transform: translate(0, 0)
+  }
+
+  10% {
+    transform: translate(-1%, -1%)
+  }
+
+  50% {
+    transform: translate(1%, 1%)
+  }
+
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@font-face {
+  font-family: "Gimbal";
+  src: url("/fonts/GimbalExtendedRegular-mLXzP.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.gimbal-font{
+  font-family:"Gimbal",sans-serif;
+  text-transform:uppercase;
+  line-height:0.95;
+  letter-spacing:-0.02em;
+
+  hyphens:auto;
+  -webkit-hyphens:auto;
+  -ms-hyphens:auto;
+
+  overflow-wrap:break-word;
+}
+
+.landing-title {
+  font-size: clamp(20px, 5vw, 72px);
+  width: 100%;
+  max-width: 90vw;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+
+.hero-title {
+  font-size: clamp(18px, 4vw, 60px);
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h3 {
+  font-size: clamp(14px, 2vw, 24px);
+  margin-bottom: 1.5rem;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, .03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, .1);
+  transition: var(--transition-smooth);
+}
+
+.portfolio-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: white;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.portfolio-btn:hover {
+  background: white;
+  color: black;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .landing-title {
+    font-size: clamp(18px, 6vw, 48px);
+  }
+}
+
+@media (max-width: 640px) {
+  .landing-title {
+    font-size: 18px !important;
+    padding: 0 10px;
+    line-height: 1.1;
+  }
+
+  .hero-title {
+    font-size: 18px !important;
+    padding: 0 10px;
+  }
+
+  .gimbal-font {
+    font-size: 18px !important;
+  }
+
+  h3 {
+    font-size: 14px !important;
+  }
+
+  .hero-subtitle p {
+    letter-spacing: 0.1em !important;
+    font-size: 9px !important;
+    text-align: center;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  div.w-\[40\%\],
+  div.w-\[30\%\] {
+    width: 15% !important;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+    filter: blur(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 1s cubic-bezier(.2, .8, .2, 1) forwards;
+}
+
+.animate-fadeIn {
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+.hero-subtitle {
+  opacity: 0;
+  animation: fadeInUp 1s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation-delay: 0.5s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* (sakura styles removed) */
